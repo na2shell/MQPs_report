@@ -1,0 +1,51 @@
+\documentclass[uplatex, twocolumn,10pt]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{latexsym}
+\usepackage{bmpsize}
+\usepackage{url}
+\usepackage{comment}
+
+\begin{document}
+
+\title{\bf{\LARGE{MQPsについて調べたこと} \\ \Large{メッセージの順序保証と重複について}}}
+\author{小関廉}
+\date{}
+\maketitle
+
+\section{はじめに}
+
+国内外向けにデータの発生を通知するための仕組みとして、
+Message Queueing Protocols(以下MQPs)が庁内で注目を集めている。
+MQPsでは輸送するデータのことをメッセージと呼ぶ。
+MQPsの代表的なものとしては、MQTTやAMQPなどが挙げられる。
+
+MQPsをデータの発生通知のために使うにあたって、重要になるのが
+メッセージの到着順序と重複の有無である。本報告書では
+複数のMQPsの異なるバージョンに対して、メッセージの到着順序と重複の有無についてまとめることを目的とする。
+また、本報告書はプロトコルレベルでの機能に着目し、実装で盛り込まれている機能についてはできるだけ言及しないものとする。
+
+\section{MQPsに存在する概念}
+
+\subsection{メッセージの到達保証}
+
+MQPsではメッセージを運ぶ際に、そのメッセージが到達したかどうかのチェックの有無やレベルを決めることができる。
+この概念はメッセージの到着順序について理解する上で必要な概念である。
+メッセージの到達確認については、プロトコルによって異なったアプローチをしているため
+それぞれについて説明する
+
+\subsubsection{MQTT}
+
+MQTTにはv3系とv5系が存在するが、メッセージの到達保証については同様のアプローチをしているため
+まとめて説明する。MQTTではQoSという指標でメッセージの到達確認のレベルを決定している。
+QoSは0から2までの3段階あり、以下のように位置付けられている。
+
+\begin{itemize}
+    \item QoS = 0 : 確認しない
+    \item QoS = 1 : 少なくとも一度は届ける(重複する可能性あり)
+    \item QoS = 2 : 一度だけ届ける(重複なし)
+\end{itemize}
+
+
+
+\end{document}
